@@ -15,7 +15,7 @@ variables:
   bkstrgkey: 'terraform.tfstate'
 
 stages:
-  - stage:
+  - stage: validate
     jobs:
     - job: validate
       continueOnError: false
@@ -41,3 +41,32 @@ stages:
           workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'validate'
+  - stage: plan
+    condition: succeeded('validate')
+    dependsOn: validate
+    jobs:
+    - job: plan
+      steps:
+      - task: TerraformInstaller@1
+        displayName: tfinstall
+        inputs:
+          terraformVersion: 'latest'
+      - task: TerraformTaskV4@4
+        displayName: tfinit
+        inputs:
+          workingDirectory: './terraform/'
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'devops-assignment-connection'
+          backendAzureRmResourceGroupName: '$(bkrg)'
+          backendAzureRmStorageAccountName: '$(bkstrg)'
+          backendAzureRmContainerName: '$(bkcontainer)'
+          backendAzureRmKey: '$(bkstrgkey)'
+      - task: TerraformTaskV4@4
+        displayName: tfplan
+        inputs:
+          workingDirectory: './terraform/'
+          provider: 'azurerm'
+          command: 'plan'
+          environmentServiceNameAzureRM: 'devops-assignment-connection'
+
