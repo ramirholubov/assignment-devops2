@@ -68,5 +68,11 @@ stages:
           workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'plan'
+          backendServiceArm: 'devops-assignment-connection'
+          backendAzureRmResourceGroupName: '$(bkrg)'
+          backendAzureRmStorageAccountName: '$(bkstrg)'
+          backendAzureRmContainerName: '$(bkcontainer)'
+          backendAzureRmKey: '$(bkstrgkey)'
+#          commandOptions: '-input=false'
           environmentServiceNameAzureRM: 'devops-assignment-connection'
 
