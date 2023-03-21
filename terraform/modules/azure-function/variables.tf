@@ -39,5 +39,5 @@ variable "account_replication_type" {
 
 variable "account_tier" {
   description = "Account tier for storage account"
-  default = "Standart"
+  default = "Standard"
 }
