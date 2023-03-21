@@ -1,7 +1,8 @@
 variable "environment" {}
 variable "project" {}
-variable "region" {}
-variable "location" {}
+variable "region" {
+  default = "eastus"
+}
 
 #Service plan variables
 

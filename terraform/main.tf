@@ -1,7 +1,7 @@
 module "resource-group" {
   source = "./modules/resource-group"
 
-  location            = var.location
+  location            = var.region
   resource_group_name = "${local.pattern_name}-rg"
 }
 
