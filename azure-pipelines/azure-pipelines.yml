@@ -27,6 +27,7 @@ stages:
       - task: TerraformTaskV4@4
         displayName: tfinit
         inputs:
+          workingDirectory: '../terraform/'
           provider: 'azurerm'
           command: 'init'
           backendServiceArm: 'devops-assignment-connection'
@@ -37,5 +38,6 @@ stages:
       - task: TerraformTaskV4@4
         displayName: tfvalidate
         inputs:
+          workingDirectory: '../terraform/'
           provider: 'azurerm'
           command: 'validate'
