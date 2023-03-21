@@ -65,8 +65,14 @@ stages:
       - task: TerraformTaskV4@4
         displayName: tfplan
         inputs:
+          workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'plan'
-          commandOptions: '-input=false'
+          backendServiceArm: 'devops-assignment-connection'
+          backendAzureRmResourceGroupName: '$(bkrg)'
+          backendAzureRmStorageAccountName: '$(bkstrg)'
+          backendAzureRmContainerName: '$(bkcontainer)'
+          backendAzureRmKey: '$(bkstrgkey)'
+#          commandOptions: '-input=false'
           environmentServiceNameAzureRM: 'devops-assignment-connection'
 
