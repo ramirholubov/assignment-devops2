@@ -45,7 +45,7 @@ stages:
     condition: succeeded('validate')
     dependsOn: validate
     jobs:
-    - job: plan
+    - job: apply
       steps:
       - task: TerraformInstaller@1
         displayName: tfinstall
@@ -69,5 +69,12 @@ stages:
           provider: 'azurerm'
           command: 'plan'
 #         commandOptions: '-input=false'
+          environmentServiceNameAzureRM: 'devops-assignment-connection'
+      - task: TerraformTaskV4@4
+        displayName: tfapply
+        inputs:
+          workingDirectory: './terraform/'
+          provider: 'azurerm'
+          command: 'apply'
           environmentServiceNameAzureRM: 'devops-assignment-connection'
 
