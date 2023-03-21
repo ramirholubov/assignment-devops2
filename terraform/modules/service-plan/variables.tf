@@ -10,7 +10,7 @@ variable "service_plan_name" {
   description = "Name of service plan"
 }
 
-variable "service_plan_type" {
+variable "service_plan_os" {
   description = "Service plan type"
 }
 

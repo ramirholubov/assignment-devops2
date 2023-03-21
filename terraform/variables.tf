@@ -10,11 +10,11 @@ variable "region" {
 
 #Service plan variables
 
-variable "service_plan_type" {
+variable "service_plan_os" {
   default = "Linux"
 }
 variable "sku_version" {
-  default = "SHARED"
+  default = "EP1"
 }
 
 #Backend variables

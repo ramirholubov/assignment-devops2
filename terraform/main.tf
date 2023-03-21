@@ -12,7 +12,7 @@ module "function-service-plan" {
   location            = module.resource-group.resource_group_location
   resource_group_name = module.resource-group.resource_group_name
   service_plan_name   = "${local.pattern_name}-function-sp"
-  service_plan_type   = var.service_plan_type
+  service_plan_os   = var.service_plan_os
   sku_version         = var.sku_version
 }
 
