@@ -18,24 +18,24 @@ stages:
   - stage:
     jobs:
     - job: validate
-    continueOnError: false
-    steps:
-    - task: TerraformInstaller@1
-      displayName: tfinstall
-      inputs:
-        terraformVersion: 'latest'
-    - task: TerraformTaskV4@4
-      displayName: tfinit
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'devops-assignment-connection'
-        backendAzureRmResourceGroupName: '$(bkrg)'
-        backendAzureRmStorageAccountName: '$(bkstrg)'
-        backendAzureRmContainerName: '$(bkcontainer)'
-        backendAzureRmKey: '$(bkstrgkey)'
-    - task: TerraformTaskV4@4
-      displayName: tfvalidate
-      inputs:
-        provider: 'azurerm'
-        command: 'validate'
+      continueOnError: false
+      steps:
+      - task: TerraformInstaller@1
+        displayName: tfinstall
+        inputs:
+          terraformVersion: 'latest'
+      - task: TerraformTaskV4@4
+        displayName: tfinit
+        inputs:
+          provider: 'azurerm'
+          command: 'init'
+          backendServiceArm: 'devops-assignment-connection'
+          backendAzureRmResourceGroupName: '$(bkrg)'
+          backendAzureRmStorageAccountName: '$(bkstrg)'
+          backendAzureRmContainerName: '$(bkcontainer)'
+          backendAzureRmKey: '$(bkstrgkey)'
+      - task: TerraformTaskV4@4
+        displayName: tfvalidate
+        inputs:
+          provider: 'azurerm'
+          command: 'validate'
