@@ -1,13 +1,21 @@
-variable "environment" {}
-variable "project" {}
+variable "environment" {
+  default = "dev"
+}
+variable "project" {
+  default = "devopsasg2"
+}
 variable "region" {
   default = "eastus"
 }
 
 #Service plan variables
 
-variable "service_plan_type" {}
-variable "sku_version" {}
+variable "service_plan_type" {
+  default = "Linux"
+}
+variable "sku_version" {
+  default = "SHARED"
+}
 
 #Backend variables
 
