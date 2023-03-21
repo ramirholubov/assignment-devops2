@@ -15,7 +15,7 @@ variables:
   bkstrgkey: 'terraform.tfstate'
 
 stages:
-  - stage:
+  - stage: validate
     jobs:
     - job: validate
       continueOnError: false
@@ -41,7 +41,7 @@ stages:
           workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'validate'
-  - stage:
+  - stage: plan
     jobs:
     - job: plan
       steps:
