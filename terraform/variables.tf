@@ -19,7 +19,15 @@ variable "sku_version" {
 
 #Backend variables
 
-variable "bkrg" {}
-variable "bkstrg" {}
-variable "bkcontainer" {}
-variable "bkstrgkey" {}
+variable "bkrg" {
+  default     = "PLACEHOLDER"
+}
+variable "bkstrg" {
+  default     = "PLACEHOLDER"
+}
+variable "bkcontainer" {
+  default     = "PLACEHOLDER"
+}
+variable "bkstrgkey" {
+  default     = "PLACEHOLDER"
+}
