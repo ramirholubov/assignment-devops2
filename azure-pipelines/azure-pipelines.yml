@@ -68,5 +68,6 @@ stages:
           workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'plan'
+          commandOptions: '-input=false'
           environmentServiceNameAzureRM: 'devops-assignment-connection'
 
