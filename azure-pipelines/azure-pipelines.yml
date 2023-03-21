@@ -41,3 +41,13 @@ stages:
           workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'validate'
+  - stage:
+    jobs:
+    - job: plan
+      steps:
+        - task: TerraformTaskV4@4
+          inputs:
+            provider: 'azurerm'
+            command: 'plan'
+            environmentServiceNameAzureRM: 'devops-assignment-connection'
+
