@@ -5,7 +5,7 @@ pool:
 steps:
   - task: DotNetCoreCLI@2
     inputs:
-      workingDirectory: './app/SampleFunctionApp/'
+      workingDirectory: "$(System.DefaultWorkingDirectory)/app/SampleFunctionApp"
       command: publish
       arguments: '--configuration Release --output publish_output'
       projects: '*.csproj'
@@ -15,10 +15,10 @@ steps:
   - task: ArchiveFiles@2
     displayName: "Archive files"
     inputs:
-      rootFolderOrFile: "./app/SampleFunctionApp/publish_output"
+      rootFolderOrFile: "$(System.DefaultWorkingDirectory)/app/SampleFunctionApp/publish_output"
       includeRootFolder: false
-      archiveFile: "./app/SampleFunctionApp/build$(Build.BuildId).zip"
+      archiveFile: "$(System.DefaultWorkingDirectory)/app/SampleFunctionApp/build$(Build.BuildId).zip"
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: './app/SampleFunctionApp/build$(Build.BuildId).zip'
+      PathtoPublish: "$(System.DefaultWorkingDirectory)/app/SampleFunctionApp/build$(Build.BuildId).zip"
       artifactName: 'drop'
