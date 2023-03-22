@@ -9,7 +9,7 @@ steps:
       dotnet build --configuration Release
   - task: DotNetCoreCLI@2
     inputs:
-      workingDirectory: '.app/'
+      workingDirectory: './app'
       command: publish
       arguments: '--configuration Release --output publish_output'
       projects: '*.csproj'
