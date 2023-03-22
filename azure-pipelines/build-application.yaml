@@ -11,7 +11,7 @@ steps:
 - task: ArchiveFiles@2
   displayName: "Archive files"
   inputs:
-    rootFolderOrFile: "./app"
+    rootFolderOrFile: "./app/Application/Function1"
     includeRootFolder: false
     archiveFile: "./app/build$(Build.BuildId).zip"
 - task: PublishBuildArtifacts@1
