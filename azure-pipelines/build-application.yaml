@@ -1,0 +1,30 @@
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'windows-latest'
+steps:
+  - script: |
+      cd ./app
+      dotnet restore
+      dotnet build --configuration Release
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: publish
+      arguments: '--configuration Release --output ./app/SampleFunctionApp/publish_output'
+      projects: './app/SampleFunctionApp/SampleFunctionApp.csproj'
+      publishWebProjects: false
+      modifyOutputPath: false
+      zipAfterPublish: false
+  - task: ArchiveFiles@2
+    displayName: "Archive files"
+    inputs:
+      rootFolderOrFile: "./app/SampleFunctionApp/publish_output"
+      includeRootFolder: false
+      archiveFile: "./app/SampleFunctionApp/build$(Build.BuildId).zip"
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: './app/SampleFunctionApp/build$(Build.BuildId).zip'
+      artifactName: 'drop'
