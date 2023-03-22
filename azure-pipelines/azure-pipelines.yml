@@ -13,7 +13,7 @@ variables:
   bkstrg: 'accountforstatefiles'
   bkcontainer: 'tfstate'
   bkstrgkey: 'terraform.tfstate'
-  environment: 'qa'
+  environment: 'dev'
 
 stages:
   - stage: validate
