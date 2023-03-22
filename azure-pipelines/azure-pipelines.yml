@@ -41,11 +41,11 @@ stages:
           workingDirectory: './terraform/'
           provider: 'azurerm'
           command: 'validate'
-  - stage: plan
+  - stage: plan_and_apply
     condition: succeeded('validate')
     dependsOn: validate
     jobs:
-    - job: apply
+    - job: "plan_apply"
       steps:
       - task: TerraformInstaller@1
         displayName: tfinstall
