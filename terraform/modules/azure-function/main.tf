@@ -14,7 +14,11 @@ resource "azurerm_linux_function_app" "simp-func" {
   storage_account_name = azurerm_storage_account.func-strg.name
   storage_account_access_key = azurerm_storage_account.func-strg.primary_access_key
 
-  site_config {}
+  site_config {
+    application_stack {
+      node_version = "18"
+    }
+  }
 
   tags = var.tags
 }
