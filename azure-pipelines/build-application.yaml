@@ -7,16 +7,18 @@ steps:
       cd ./app
       dotnet restore
       dotnet build --configuration Release
+      cd ./app/SampleFunctionApp
+      dotnet publish SampleFunctionApp.csproj --configuration Release --output publish_output
       ls ./
-  - task: DotNetCoreCLI@2
-    inputs:
-      workingDirectory: './app/SampleFunctionApp'
-      command: publish
-      arguments: '--configuration Release --output publish_output'
-      projects: 'SampleFunctionApp.csproj'
-      publishWebProjects: false
-      modifyOutputPath: false
-      zipAfterPublish: false
+#  - task: DotNetCoreCLI@2
+#    inputs:
+#      workingDirectory: './app/SampleFunctionApp'
+#      command: publish
+#      arguments: '--configuration Release --output publish_output'
+#      projects: 'SampleFunctionApp.csproj'
+#      publishWebProjects: false
+#      modifyOutputPath: false
+#      zipAfterPublish: false
   - task: ArchiveFiles@2
     displayName: "Archive files"
     inputs:
