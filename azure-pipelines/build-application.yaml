@@ -5,7 +5,7 @@ pool:
 steps:
   - task: DotNetCoreCLI@2
     inputs:
-      workingDirectory: './app/SampleFunctionApp'
+      workingDirectory: './app/SampleFunctionApp/'
       command: publish
       arguments: '--configuration Release --output publish_output'
       projects: '*.csproj'
