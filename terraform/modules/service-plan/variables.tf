@@ -21,3 +21,9 @@ variable "resource_group_name" {
 variable "sku_version" {
   description = "Version of service plan"
 }
+
+variable "tags" {
+  description = "A set of project's specific tags"
+  type        = map(string)
+  default     = {}
+}

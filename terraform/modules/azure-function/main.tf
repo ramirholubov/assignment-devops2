@@ -4,6 +4,8 @@ resource "azurerm_storage_account" "func-strg" {
   location                 = var.location
   name                     = var.storage_account_name
   resource_group_name      = var.resource_group_name
+
+  tags = var.tags
 }
 resource "azurerm_linux_function_app" "simp-func" {
   location            = var.location

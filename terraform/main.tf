@@ -3,6 +3,8 @@ module "resource-group" {
 
   location            = var.region
   resource_group_name = "${local.pattern_name}-rg"
+
+  tags = var.tags
 }
 
 module "function-service-plan" {
@@ -14,6 +16,8 @@ module "function-service-plan" {
   service_plan_name   = "${local.pattern_name}-function-sp"
   service_plan_os   = var.service_plan_os
   sku_version         = var.sku_version
+
+  tags = var.tags
 }
 
 module "azure-function" {
@@ -25,4 +29,6 @@ module "azure-function" {
   function_service_plan_id = module.function-service-plan.service_plan_id
   location                 = module.resource-group.resource_group_location
   resource_group_name      = module.resource-group.resource_group_name
+
+  tags = var.tags
 }
