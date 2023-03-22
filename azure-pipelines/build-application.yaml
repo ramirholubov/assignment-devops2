@@ -2,10 +2,7 @@ pool:
   vmImage: ubuntu-latest # Use 'windows-latest' if you have Windows native +Node modules
 steps:
 - bash: |
-    if [ -f extensions.csproj ]
-    then
-        dotnet build extensions.csproj --output ./bin
-    fi
+    cd ./app
     npm install 
     npm run build --if-present
     npm prune --production
