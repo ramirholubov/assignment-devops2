@@ -1,7 +1,6 @@
 variable "environment" {}
 variable "project" {}
 variable "region" {}
-variable "tags" {}
 
 #Service plan variables
 
