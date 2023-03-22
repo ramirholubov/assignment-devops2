@@ -8,22 +8,75 @@ trigger: none
 pool:
   vmImage: ubuntu-latest
 
-steps:
-- bash: |
-    if [ -f extensions.csproj ]
-    then
-        dotnet build extensions.csproj --output ./bin
-    fi
-    npm install 
-    npm run build --if-present
-    npm prune --production
-- task: ArchiveFiles@2
-  displayName: "Archive files"
-  inputs:
-    rootFolderOrFile: "./app"
-    includeRootFolder: false
-    archiveFile: "./app/build$(Build.BuildId).zip"
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: './app/build$(Build.BuildId).zip'
-    artifactName: 'drop'
+variables:
+  bkrg: 'general-resources'
+  bkstrg: 'accountforstatefiles'
+  bkcontainer: 'tfstate'
+  bkstrgkey: 'production.tfstate'
+  environment: 'prod'
+
+stages:
+  - stage: validate
+    jobs:
+      - job: validate
+        continueOnError: false
+        steps:
+          - task: TerraformInstaller@1
+            displayName: tfinstall
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: tfinit
+            inputs:
+              workingDirectory: './terraform/'
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'devops-assignment-connection'
+              backendAzureRmResourceGroupName: '$(bkrg)'
+              backendAzureRmStorageAccountName: '$(bkstrg)'
+              backendAzureRmContainerName: '$(bkcontainer)'
+              backendAzureRmKey: '$(bkstrgkey)'
+          - task: TerraformTaskV4@4
+            displayName: tfvalidate
+            inputs:
+              workingDirectory: './terraform/'
+              provider: 'azurerm'
+              command: 'validate'
+  - stage: plan_and_apply
+    condition: succeeded('validate')
+    dependsOn: validate
+    jobs:
+      - job: "plan_apply"
+        steps:
+          - task: TerraformInstaller@1
+            displayName: tfinstall
+            inputs:
+              terraformVersion: 'latest'
+          - task: TerraformTaskV4@4
+            displayName: tfinit
+            inputs:
+              workingDirectory: './terraform/'
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'devops-assignment-connection'
+              backendAzureRmResourceGroupName: '$(bkrg)'
+              backendAzureRmStorageAccountName: '$(bkstrg)'
+              backendAzureRmContainerName: '$(bkcontainer)'
+              backendAzureRmKey: '$(bkstrgkey)'
+          - task: TerraformTaskV4@4
+            displayName: tfplan
+            inputs:
+              workingDirectory: './terraform/'
+              provider: 'azurerm'
+              command: 'plan'
+              commandOptions: '-var=environment=$(environment)'
+              environmentServiceNameAzureRM: 'devops-assignment-connection'
+          - task: TerraformTaskV4@4
+            displayName: tfapply
+            inputs:
+              workingDirectory: './terraform/'
+              provider: 'azurerm'
+              command: 'apply'
+              commandOptions: '-var=environment=$(environment)'
+              environmentServiceNameAzureRM: 'devops-assignment-connection'
+

@@ -10,7 +10,7 @@ variable "service_plan_name" {
   description = "Name of service plan"
 }
 
-variable "service_plan_type" {
+variable "service_plan_os" {
   description = "Service plan type"
 }
 
@@ -20,4 +20,10 @@ variable "resource_group_name" {
 
 variable "sku_version" {
   description = "Version of service plan"
+}
+
+variable "tags" {
+  description = "A set of project's specific tags"
+  type        = map(string)
+  default     = {}
 }
