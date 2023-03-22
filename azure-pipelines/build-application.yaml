@@ -3,14 +3,9 @@ trigger: none
 pool:
   vmImage: 'windows-latest'
 steps:
-  - script: |
-      cd ./app
-      dotnet restore
-      dotnet build --configuration Release
-      ls ./
   - task: DotNetCoreCLI@2
     inputs:
-      workingDirectory: './app'
+      workingDirectory: './app/SampleFunctionApp'
       command: publish
       arguments: '--configuration Release --output publish_output'
       projects: '*.csproj'
@@ -20,10 +15,10 @@ steps:
   - task: ArchiveFiles@2
     displayName: "Archive files"
     inputs:
-      rootFolderOrFile: "./app/publish_output"
+      rootFolderOrFile: "./app/SampleFunctionApp/publish_output"
       includeRootFolder: false
-      archiveFile: "./app/build$(Build.BuildId).zip"
+      archiveFile: "./app/SampleFunctionApp/build$(Build.BuildId).zip"
   - task: PublishBuildArtifacts@1
     inputs:
-      PathtoPublish: './app/build$(Build.BuildId).zip'
+      PathtoPublish: './app/SampleFunctionApp/build$(Build.BuildId).zip'
       artifactName: 'drop'
