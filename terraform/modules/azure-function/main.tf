@@ -16,7 +16,7 @@ resource "azurerm_linux_function_app" "simp-func" {
 
   site_config {
     application_stack {
-      node_version = "18"
+      node_version = "16"
     }
   }
 
